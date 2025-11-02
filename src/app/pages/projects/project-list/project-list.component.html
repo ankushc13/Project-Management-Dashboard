@@ -1,0 +1,34 @@
+<div class="projects-list page-container">
+
+  <p class="muted" *ngIf="!loading && projects.length === 0">No projects found.</p>
+
+  <div *ngIf="loading" class="spinner"></div>
+
+  <div class="card" *ngIf="!loading && projects.length > 0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of projects">
+          <td>{{ p.id }}</td>
+          <td><a [routerLink]="[p.id]">{{ p.name }}</a></td>
+          <td><span class="badge badge-primary">{{ p.status }}</span></td>
+          <td>{{ p.startDate }}</td>
+          <td>{{ p.endDate }}</td>
+          <td>
+            <a class="btn btn-secondary" [routerLink]="['edit', p.id]">Edit</a>
+            <button class="btn btn-danger" (click)="deleteProject(p.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

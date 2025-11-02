@@ -1,0 +1,43 @@
+<div class="page-container">
+  <div class="page-header">
+    <h2>{{ isEdit ? 'Edit Task' : 'New Task' }}</h2>
+    <a class="btn" (click)="cancel()">Cancel</a>
+  </div>
+
+  <div class="card">
+    <div class="form-group">
+      <label class="form-label">Title</label>
+      <input class="form-control" [(ngModel)]="model.title" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" [(ngModel)]="model.description"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Status</label>
+      <select class="form-control" [(ngModel)]="model.status">
+        <option>To Do</option>
+        <option>In Progress</option>
+        <option>Done</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Assign To</label>
+      <select class="form-control" [(ngModel)]="model.assignedTo">
+        <option *ngFor="let u of users" [value]="u.id">{{ u.name }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Due Date</label>
+      <input type="date" class="form-control" [(ngModel)]="model.dueDate" />
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-primary" (click)="save()">Save</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="page-container">
+  <div class="page-header">
+    <h2>Tasks</h2>
+    <div>
+      <select [(ngModel)]="filter" class="form-control">
+        <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+      </select>
+      <button class="btn btn-primary" (click)="goToNew()">+ New Task</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Assigned</th>
+          <th>Due</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of filteredTasks()">
+          <td>{{ t.title }}</td>
+          <td>{{ t.status }}</td>
+          <td>{{ getAssignedName(t) }}</td>
+          <td>{{ t.dueDate }}</td>
+          <td>
+            <button class="btn" (click)="view(t)">View</button>
+            <button class="btn" (click)="edit(t)">Edit</button>
+            <button class="btn btn-danger" (click)="deleteTask(t)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

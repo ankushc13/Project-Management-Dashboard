@@ -1,0 +1,21 @@
+<div class="project-detail page-container">
+  <div class="page-header">
+    <h2>Project Details</h2>
+    <a class="btn btn-primary" [routerLink]="['../']">Back to Projects</a>
+  </div>
+
+  <div class="card">
+    <p *ngIf="!loading && project"><strong>Project ID:</strong> {{ project.id }}</p>
+    <p *ngIf="!loading && project"><strong>Name:</strong> {{ project.name }}</p>
+    <p *ngIf="!loading && project"><strong>Description:</strong> {{ project.description }}</p>
+    <p *ngIf="!loading && project"><strong>Status:</strong> {{ project.status }}</p>
+    <p *ngIf="!loading && project"><strong>Start:</strong> {{ project.startDate }} — <strong>End:</strong> {{ project.endDate }}</p>
+  <p *ngIf="!loading && project"><strong>Members:</strong> {{ project.members.join(', ') || '—' }}</p>
+    <div *ngIf="loading" class="spinner"></div>
+  </div>
+  <div class="card">
+    <a class="btn btn-primary" [routerLink]="['tasks']">View Tasks</a>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

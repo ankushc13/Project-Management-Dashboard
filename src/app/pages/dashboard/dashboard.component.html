@@ -1,0 +1,22 @@
+<div class="dashboard-container">
+  <h2>Dashboard</h2>
+  <p>Welcome to the Project Management Dashboard!</p>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>Total Projects</h3>
+      <p class="stat-number">{{ loading ? '...' : totalProjects }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Active Tasks</h3>
+      <p class="stat-number">{{ loading ? '...' : activeTasks }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Team Members</h3>
+      <p class="stat-number">{{ loading ? '...' : teamMembers }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Completed</h3>
+      <p class="stat-number">{{ loading ? '...' : completed }}</p>
+    </div>
+  </div>
+</div>

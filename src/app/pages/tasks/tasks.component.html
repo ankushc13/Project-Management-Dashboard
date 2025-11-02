@@ -1,0 +1,40 @@
+<div class="page-container">
+  <div class="page-header">
+    <h2>Tasks</h2>
+    <div>
+      <select [(ngModel)]="filter" class="form-control">
+        <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+      </select>
+      <a class="btn-primary" routerLink="/projects">All Projects</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Project</th>
+          <th>Assigned</th>
+          <th>Due</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of filteredTasks()">
+          <td>{{ t.title }}</td>
+          <td>{{ t.status }}</td>
+          <td><a [routerLink]="['/projects', t.projectId]">{{ t.projectId }}</a></td>
+          <td>{{ getAssignedName(t) }}</td>
+          <td>{{ t.dueDate }}</td>
+          <td>
+            <a [routerLink]="['/projects', t.projectId, 'tasks', t.id]" class="btn">View</a>
+            <a [routerLink]="['/projects', t.projectId, 'tasks', t.id, 'edit']" class="btn">Edit</a>
+            <button class="btn btn-danger" (click)="deleteTask(t.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

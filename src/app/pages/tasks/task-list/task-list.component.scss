@@ -1,0 +1,12 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+}
+
+.btn { margin-left: 0.5rem; }

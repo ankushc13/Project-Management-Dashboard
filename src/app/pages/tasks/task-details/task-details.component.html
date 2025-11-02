@@ -1,0 +1,21 @@
+<div class="page-container">
+  <div class="page-header">
+    <h2>Task Details</h2>
+    <div>
+      <a class="btn" routerLink="../">Back</a>
+      <a class="btn btn-primary" [routerLink]="['edit']">Edit</a>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="task">
+    <p><strong>Title:</strong> {{ task.title }}</p>
+    <p><strong>Status:</strong> {{ task.status }}</p>
+    <p><strong>Assigned:</strong> {{ task.assignedTo }}</p>
+    <p><strong>Due:</strong> {{ task.dueDate }}</p>
+    <p><strong>Description:</strong></p>
+    <p>{{ task.description }}</p>
+    <div class="actions">
+      <button class="btn btn-danger" (click)="deleteTask()">Delete</button>
+    </div>
+  </div>
+</div>
