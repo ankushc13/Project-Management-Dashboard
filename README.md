@@ -1,28 +1,87 @@
-# ProjectManagementDashboard
+# Project Management Dashboard
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.21.
+This repository contains a small full-stack Project Management Dashboard built with an Angular frontend and a Node/Express + SQLite backend. It includes project CRUD, task management, users, and a dashboard with basic stats.
 
-## Development server
+## Status (what's implemented)
+- **Backend (Node + Express + SQLite)**
+  - `backend/init-db.js` — creates `project-management.db`, schema (users, projects, project_members, tasks) and inserts sample data.
+  - `backend/server.js` — REST API for users, projects and tasks:
+    - Users: `GET /api/users`, `GET /api/users/:id`, `POST /api/users`, `PUT /api/users/:id`, `DELETE /api/users/:id`
+    - Projects: `GET /api/projects`, `GET /api/projects/:id`, `POST /api/projects`, `PUT /api/projects/:id`, `DELETE /api/projects/:id`
+    - Tasks: `GET /api/tasks`, `GET /api/tasks/:id`, `GET /api/projects/:projectId/tasks`, `POST /api/tasks`, `PUT /api/tasks/:id`, `DELETE /api/tasks/:id`
+  - `backend/database.js` — small wrapper around sqlite3 with Promise helpers.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Frontend (Angular 18, standalone components)**
+  - Models: `src/app/models/types.ts` (Project, Task, User interfaces)
+  - Services: `src/app/services/*` (ProjectService, TaskService, UserService) to call the backend API
+  - Layout: `src/app/layout` — top navigation + sidebar with active link highlighting
+  - Pages:
+    - Dashboard: dynamic counts for projects, tasks and users
+    - Projects: list, add/edit form, detail view (including project members)
+    - Tasks: global tasks list at `/tasks` and project-scoped task views at `/projects/:id/tasks`
+  - Routing: `src/app/app.routes.ts` wired with nested routes for project-scoped tasks
 
-## Code scaffolding
+## Key files (quick reference)
+- `backend/init-db.js` — initialize DB and seed sample data
+- `backend/project-management.db` — created after running the init script
+- `backend/server.js` — backend API server
+- `src/app/models/types.ts` — TypeScript interfaces
+- `src/app/services/*` — HTTP services for API calls
+- `src/app/pages/projects/*` — Projects UI and child routes
+- `src/app/pages/tasks/*` — Task list, form and details components
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Prerequisites
+- Node.js (16+ recommended) and npm
+- (Optional) Angular CLI if you want to run Angular commands locally
 
-## Build
+## Run the app (Windows - cmd.exe recommended)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 1) Backend
 
-## Running unit tests
+Open a cmd.exe terminal and run:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```cmd
+cd C:\angular\project-management-dashboard\backend
+npm install
+npm run init-db
+npm start
+```
 
-## Running end-to-end tests
+- `npm run init-db` will create `project-management.db` and insert sample data.
+- Backend server will listen on http://localhost:3000 and expose the API under `/api/*`.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### 2) Frontend
 
-## Further help
+In a separate cmd.exe terminal (project root):
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-# Project-Management-Dashboard
+```cmd
+cd C:\angular\project-management-dashboard
+npm install
+npm start
+```
+
+- The Angular dev server runs at http://localhost:4200 by default.
+- If you see PowerShell execution policy errors when running `npx` or scripts, run the above commands from cmd.exe instead of PowerShell.
+
+### 3) Try it
+
+- Open http://localhost:4200
+- Go to Projects → create / edit projects.
+- Open a project and click "View Tasks" to see project-scoped tasks.
+- Or open http://localhost:4200/tasks to view the global tasks list.
+
+## Database location & reset
+- The SQLite file is at `backend/project-management.db`.
+- To reset the DB: stop the backend, delete `backend/project-management.db`, then re-run `npm run init-db`.
+
+## Troubleshooting
+- If `npx` fails in PowerShell with an execution policy error, either run commands in cmd.exe or update PowerShell execution policy. Using cmd.exe is simplest.
+- If the frontend can't reach the backend, ensure the backend is running and CORS is enabled (it is by default in `server.js`).
+
+## Next steps / TODOs
+- Verify create flow manually in the UI (add a project and confirm it appears in the list).
+- Replace alerts/confirm() with a toast/snackbar notification system.
+- Add unit/e2e tests and CI if you want automated checks on push.
+ - Implement Users feature in the frontend (list/detail/create/edit) — pending.
+
+---
